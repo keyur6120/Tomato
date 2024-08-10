@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR, NavLink } from "react-router-dom";
 import LogoImg from "../utils/Images/Logo.png";
@@ -147,6 +147,7 @@ const TextButton = styled.span`
 const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+
   return (
     <Nav>
       <NavContainer>
@@ -175,7 +176,8 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
         <NavItems>
           <Navlink to="/">Home</Navlink>
           <Navlink to="/dishes">Dishes</Navlink>
-          <Navlink to="/orders">Orders</Navlink>
+          {currentUser? (<Navlink to="/orders">Orders</Navlink> ):(null)}
+          {/* <Navlink to="/orders">Orders</Navlink> */}
           <Navlink to="/contact">Contact</Navlink>
         </NavItems>
 
@@ -190,6 +192,7 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
             <Navlink to="/orders" onClick={() => setIsOpen(false)}>
               Orders
             </Navlink>
+        
             <Navlink to="/contact" onClick={() => setIsOpen(false)}>
               Contact
             </Navlink>
