@@ -11,6 +11,7 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import { useSelector } from "react-redux";
 import Order from './pages/order'
+import AuthRoutes from './Authentication/AuthRoutes.jsx'
 
 const Container = styled.div``;
 
@@ -29,11 +30,13 @@ function App() {
           />
           <Routes>
             <Route path="/" exact element={<Home />} />
-            <Route path="/favorite" exact element={<Favourites />} />
-            <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
-            <Route path="/orders" exact element={<Order />} />
+            <Route element={<AuthRoutes />}>
+              <Route path="/orders" exact element={<Order />} />
+              <Route path="/favorite" exact element={<Favourites />} />
+              <Route path="/cart" exact element={<Cart />} />
+            </Route>
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />

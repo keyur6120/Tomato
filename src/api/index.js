@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const Token = axios.create({
+export const Token = axios.create({
   baseURL: " http://localhost:8080",
 
 });
 
-const API =  axios.create({
-  baseURL : "https://fooddelivery-mern.onrender.com/api/"
+const API = axios.create({
+  baseURL: "https://fooddelivery-mern.onrender.com/api/"
 })
 
 export const UserSignUp = async (data) => await Token.post("/user/signup", data);
@@ -16,6 +16,8 @@ export const UserSignIn = async (data) => await Token.post("/user/signin", data)
 export const getAllProducts = async (filter) =>
   await API.get(`/food?${filter}`, filter);
 
+
+
 export const getProductDetails = async (id) => await API.get(`/food/${id}`);
 
 //Cart
@@ -24,11 +26,15 @@ export const getCart = async (token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+// add to cart 
+
 export const addToCart = async (token, data) =>
   await API.post(`/user/cart/`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
+
+// delete from cart
 export const deleteFromCart = async (token, data) =>
   await API.patch(`/user/cart/`, data, {
     headers: { Authorization: `Bearer ${token}` },
@@ -52,12 +58,24 @@ export const deleteFromFavourite = async (token, data) =>
   });
 
 //Orders
-export const placeOrder = async (token, data) =>
+export const placeOrder = async (token, data) =>(
   await API.post(`/user/order/`, data, {
     headers: { Authorization: `Bearer ${token}` },
-  });
+  }));
 
 export const getOrders = async (token) =>
   await API.get(`/user/order/`, {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+//verify user 
+
+// export const VerfiUser = async (data) => 
+//   await Token.post("/user/verify", {
+//     headers: { Authorization: `${data}` }
+//   })
+  export const VerfiUser = async (token) => {
+    return await Token.post("/user/verify", {},{
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
